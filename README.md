@@ -1,4 +1,4 @@
-# react-redux-example
-Example with react and redux, with async actions
+# simple-react-redux-setup
+Simple react redux setup, with a mocked user reducer and actions
 ### Important
 Server not included yet.
