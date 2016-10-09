@@ -21472,7 +21472,9 @@
 
 	var Layout = (_dec = (0, _reactRedux.connect)(function (store) {
 	    return {
-	        user: store.userReducer.user
+	        user: store.userReducer.user,
+	        userFetching: store.userReducer.fetched,
+	        userFetched: store.userReducer.fetched
 	    };
 	}), _dec(_class = function (_React$Component) {
 	    _inherits(Layout, _React$Component);
@@ -24285,10 +24287,6 @@
 
 
 	    switch (action.type) {
-	        case 'FETCH_USER_PENDING':
-	            return _extends({}, state, { fetching: true });
-	            break;
-
 	        case 'FETCH_USER_FULFILLED':
 	            return _extends({}, state, { fetching: false, user: action.payload, fetched: true });
 	            break;

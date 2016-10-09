@@ -4,7 +4,9 @@ import {fetchUser} from './../actions/userActions';
 
 @connect((store) => {
     return {
-        user: store.userReducer.user
+        user: store.userReducer.user,
+        userFetching: store.userReducer.fetched,
+        userFetched: store.userReducer.fetched
     }
 })
 export default class Layout extends React.Component{

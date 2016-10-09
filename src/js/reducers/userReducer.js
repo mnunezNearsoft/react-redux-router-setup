@@ -12,10 +12,6 @@ const initialState = {
 export default function reducer(state = initialState, action){
 
     switch(action.type){
-        case 'FETCH_USER_PENDING':
-            return {...state, fetching: true};
-        break;
-
         case 'FETCH_USER_FULFILLED':
             return {...state, fetching: false, user: action.payload, fetched: true};
         break;
