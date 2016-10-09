@@ -21462,6 +21462,8 @@
 
 	var _userActions = __webpack_require__(196);
 
+	var _tweetsActions = __webpack_require__(232);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21474,18 +21476,27 @@
 	    return {
 	        user: store.userReducer.user,
 	        userFetching: store.userReducer.fetched,
-	        userFetched: store.userReducer.fetched
+	        userFetched: store.userReducer.fetched,
+	        tweets: store.tweetsReducer.tweets
 	    };
 	}), _dec(_class = function (_React$Component) {
 	    _inherits(Layout, _React$Component);
 
-	    function Layout() {
+	    function Layout(props) {
 	        _classCallCheck(this, Layout);
 
-	        return _possibleConstructorReturn(this, (Layout.__proto__ || Object.getPrototypeOf(Layout)).apply(this, arguments));
+	        var _this = _possibleConstructorReturn(this, (Layout.__proto__ || Object.getPrototypeOf(Layout)).call(this, props));
+
+	        _this.loadTweets = _this.loadTweets.bind(_this);
+	        return _this;
 	    }
 
 	    _createClass(Layout, [{
+	        key: 'loadTweets',
+	        value: function loadTweets() {
+	            this.props.dispatch((0, _tweetsActions.fetchTweets)());
+	        }
+	    }, {
 	        key: 'componentWillMount',
 	        value: function componentWillMount() {
 	            this.props.dispatch((0, _userActions.fetchUser)());
@@ -21493,6 +21504,23 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
+
+	            if (!this.props.tweets.length) {
+
+	                return _react2.default.createElement(
+	                    'button',
+	                    { onClick: this.loadTweets },
+	                    'Load tweets'
+	                );
+	            }
+
+	            var tweetsFormated = this.props.tweets.map(function (tweet) {
+	                return _react2.default.createElement(
+	                    'li',
+	                    { key: tweet.id },
+	                    tweet.text
+	                );
+	            });
 
 	            return _react2.default.createElement(
 	                'div',
@@ -21506,6 +21534,11 @@
 	                    'h2',
 	                    null,
 	                    this.props.user.name
+	                ),
+	                _react2.default.createElement(
+	                    'ul',
+	                    null,
+	                    tweetsFormated
 	                )
 	            );
 	        }
@@ -23092,7 +23125,7 @@
 
 /***/ },
 /* 196 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	'use strict';
 
@@ -23100,13 +23133,6 @@
 	    value: true
 	});
 	exports.fetchUser = fetchUser;
-
-	var _axios = __webpack_require__(210);
-
-	var _axios2 = _interopRequireDefault(_axios);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 	function fetchUser() {
 
 	    return {
@@ -24330,7 +24356,7 @@
 	            break;
 
 	        case 'FETCH_TWEETS_FULFILLED':
-	            return _extends({}, state, { fetching: false, tweets: action.payload, fetched: true });
+	            return _extends({}, state, { fetching: false, tweets: action.payload.data, fetched: true });
 	            break;
 
 	        case 'FETCH_TWEETS_REJECTED':
@@ -25684,6 +25710,33 @@
 	  };
 	};
 
+
+/***/ },
+/* 232 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.fetchTweets = fetchTweets;
+
+	var _axios = __webpack_require__(210);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function fetchTweets() {
+
+	    return function (dispatch) {
+	        dispatch({
+	            type: 'FETCH_TWEETS',
+	            payload: _axios2.default.get('http://localhost:8000/api/tweets.php')
+	        });
+	    };
+	}
 
 /***/ }
 /******/ ]);

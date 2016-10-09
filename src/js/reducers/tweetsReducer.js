@@ -13,7 +13,7 @@ export default function reducer(state = initialState, action){
         break;
 
         case 'FETCH_TWEETS_FULFILLED':
-            return {...state, fetching: false, tweets: action.payload, fetched: true};
+            return {...state, fetching: false, tweets: action.payload.data, fetched: true};
         break;
 
         case 'FETCH_TWEETS_REJECTED':
