@@ -1,4 +1,5 @@
-# simple-react-redux-setup
-Simple react redux setup, with a mocked user reducer and actions
-### Important
+# react-redux-router-setup
+Have a an example which separates the logic into 'Smart' Component and 'Dumb' Components
+
+## Important
 Server not included yet.
