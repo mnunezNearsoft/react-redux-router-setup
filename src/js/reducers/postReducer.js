@@ -1,9 +1,5 @@
 const initialState = {
-    user: {
-        id: null,
-        name: null,
-        age: null
-    },
+    posts: [],
     fetching: false,
     fetched: false,
     error: null
@@ -12,11 +8,11 @@ const initialState = {
 export default function reducer(state = initialState, action){
 
     switch(action.type){
-        case 'FETCH_USER_FULFILLED':
-            return {...state, fetching: false, user: action.payload, fetched: true};
+        case 'FETCH_POST_FULFILLED':
+            return {...state, fetching: false, posts: action.payload.data, fetched: true};
         break;
 
-        case 'FETCH_USER_REJECTED':
+        case 'FETCH_POST_REJECTED':
             return {...state, fetching: false, error: action.payload}
         break;
     }

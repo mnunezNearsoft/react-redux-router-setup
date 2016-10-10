@@ -1,7 +1,4 @@
-/*
-    need to import for async operations
-    import axios from 'axios';
-*/
+import axios from 'axios';
 
 export function fetchUser(){
 
@@ -24,5 +21,16 @@ export function fetchUser(){
             });
         }
     */
+
+}
+
+export function fetchPosts(){
+
+    return function(dispatch){
+        dispatch({
+            type: 'FETCH_POST',
+            payload: axios.get('https://jsonplaceholder.typicode.com/posts')
+        });
+    }
 
 }
